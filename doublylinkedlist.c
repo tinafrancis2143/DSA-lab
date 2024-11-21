@@ -6,7 +6,7 @@ struct node
     int data;
     struct node *prev;
     struct node *next;
-} *head = NULL, *temp, *newnode;
+} *head = NULL, *temp, *newnode, *nextnode, *prevnode;
 
 void create()
 {
@@ -52,7 +52,75 @@ void insertionatbeg(){
     display();
 }
 void insertionatend(){
-    
+    newnode=(struct node*)malloc(sizeof(struct node));
+    printf("enter the value");
+    scanf("%d",&newnode->data);
+    newnode->next=NULL;
+    temp=head;
+    while(temp->next!=NULL){
+        temp=temp->next;
+
+    }
+    temp->next=newnode;
+    newnode->prev=temp;
+    display();
+}
+void insertionbtw(){
+    int pos, i=1;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    printf("enter the position to insert the new data");
+    scanf("%d",&pos);
+    printf("enter the data");
+    scanf("%d",&newnode->data);
+    newnode->next=NULL;
+    newnode->prev=NULL;
+    temp=head;
+    while(i<pos-1){
+        temp=temp->next;
+        i++;
+    }
+    nextnode=temp->next;
+    temp->next=newnode;
+    nextnode->prev=newnode;
+    newnode->prev=temp;
+    newnode->next=nextnode;
+    display();
+
+}
+void deletionbeg(){
+    temp=head;
+    nextnode=temp->next;
+    nextnode->prev=NULL;
+    free(temp);
+    head=nextnode;
+    display();
+}
+void deletionend(){
+    temp=head;
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    prevnode=temp->prev;
+    prevnode->next=NULL;
+    free(temp);
+    display();
+
+}
+void deletionbtw(){
+    int pos, i=1;
+    temp=head;
+    printf("enter the position at which the data is to be deleted");
+    scanf("%d",&pos);
+    while(i<=pos-1){
+        temp=temp->next;
+        i++;
+    }
+    prevnode=temp->prev;
+    nextnode=temp->next;
+    prevnode->next=temp->next;
+    nextnode->prev=temp->prev;
+    free(temp);
+    display();
 }
 void main()
 {
@@ -71,25 +139,25 @@ void main()
         break;  
     case 3:
         insertionatbeg();
-         break; 
-    // case 3:
-    //     display();
-    //     break; 
-    // case 4:
-    //     display();
-    //     break; 
-    // case 5:
-    //     display();
-    //     break; 
-    // case 6:
-    //     display();
-    //     break; 
-    // case 7:
-    //     display();
-    //     break; 
-    // case 8:
-    //     display();
-    //     break;                               
+        break; 
+    case 4:
+        insertionatend();
+        break; 
+    case 5:
+        insertionbtw();
+        break; 
+    case 6:
+        deletionbeg();
+        break; 
+    case 7:
+        deletionend();
+        break; 
+    case 8:
+        deletionbtw();
+        break; 
+    default:
+        printf("wrong option");
+        break;                               
     }
     }
 }
