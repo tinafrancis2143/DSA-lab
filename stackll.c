@@ -14,9 +14,12 @@ struct node
 
 void display()
 {
-    for(int i=0;i<=top;i++){
-        printf("%d\n",stack[i]);
+    temp=head;
+    while(temp->next!=NULL){
+        printf("%d\n",temp->data);
+        temp=temp->next;
     }
+    printf("%d",temp->data);
 }
 
     
@@ -30,7 +33,7 @@ void push(){
         newnode = (struct node *)malloc(sizeof(struct node));
         printf("Enter the value");
         scanf("%d", &newnode->data);
-        stack[top]=newnode->data;
+        
         newnode->next = NULL;
         if (head == 0)
         {
@@ -53,29 +56,36 @@ void pop(){
         printf("stack is empty");
     }
     else{
-    temp=head;
+        temp=head;
+        prevnode=head;
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        while(prevnode->next!=temp){
+            prevnode=prevnode->next;
+        }
+        free(temp);
+        top--;
     
-    
-    prevnode=temp;
-    temp=temp->next;
-    top--;
-    
-    prevnode->next=NULL;
-    free(temp);
-    display();
+        prevnode->next=NULL;
+        
+        display();
     }
 }
 void search(){
     int val,count=0;
     printf("enter the value that should be found");
     scanf("%d",&val);
-    for(int i=0;i<=top;i++){
-        if(val==stack[i]){
-           
+    temp=head;
+    while(temp->next!=NULL){
+        if(val==temp->data){
             count=1;
+           
         }
-       
+        temp=temp->next;
+
     }
+    
     if(count==0){
         printf("element not found");
     }
