@@ -6,7 +6,7 @@ void main()
 {
     printf("Enter the size of first set\n");
     scanf("%d", &a);
-    int S1[a];
+    int S1[a] , bitA[10] , bitB[10];
     int i = 0;
     while (i < a)
     {
@@ -33,7 +33,7 @@ void main()
             else
             {
                 flag = 1;
-                count = count + 1;
+            
             }
         }
         if (flag == 0)
@@ -41,7 +41,7 @@ void main()
             S1[i] = c;
             i++;
         }
-        else if (count == 10 && flag == 1)
+        else if (flag == 1)
         {
             printf("Element does not exist in universal set\n");
         }
@@ -52,14 +52,33 @@ void main()
     {
         printf("%d ", S1[i]);
     }
-    printf("\nEnter the size of second set");
+    printf("\nBitstring of first set: ");
+    for(int i=0;i<10;i++){
+        int flag1=0;
+        for(int j=0;j<a;j++){
+            if(S1[j]==U[i]){
+                flag1=1;
+                break;
+            }
+        }
+        if(flag1==1){
+            bitA[i]=1;
+            
+        }
+        else{
+            bitA[i]=0;
+            
+        }
+        printf("%d",bitA[i]);
+        
+    }
+    printf("\nEnter the size of second set\n");
     scanf("%d", &b);
-    int S2[b];
+    int S2[b],flag=0;
+    i=0;
     while (i < b)
     {
-
         printf("Enter element %d:", i + 1);
-
         scanf("%d", &d);
         for (int j = 0; j < b; j++)
         {
@@ -72,7 +91,7 @@ void main()
         }
         for (int j = 0; j < 10; j++)
         {
-            if (c == U[j])
+            if (d == U[j])
             {
                 flag = 0;
                 break;
@@ -80,7 +99,6 @@ void main()
             else
             {
                 flag = 1;
-                count = count + 1;
             }
         }
         if (flag == 0)
@@ -88,7 +106,7 @@ void main()
             S2[i] = d;
             i++;
         }
-        else if (count == 10 && flag == 1)
+        else if (flag == 1)
         {
             printf("Element does not exist in universal set\n");
         }
@@ -98,5 +116,46 @@ void main()
     for (int i = 0; i < b; i++)
     {
         printf("%d ", S2[i]);
+    }
+    printf("\nBitstring of second set: ");
+    for(int i=0;i<10;i++){
+        int flag1=0;
+        for(int j=0;j<b;j++){
+            if(S2[j]==U[i]){
+                flag1=1;
+                break;
+            }
+        }
+        if(flag1==1){
+            bitB[i]=1;
+            
+        }
+        else{
+            bitB[i]=0;
+            
+        }
+        printf("%d",bitB[i]);
+        
+    }
+    int union1[10],intersection[10];
+    printf("\nIntersection: ");
+    for(int i=0;i<10;i++){
+        if(bitA[i]==bitB[i]){
+            intersection[i]=bitA[i];
+        }
+        else{
+            intersection[i]=0;
+        }
+    printf("%d",intersection[i]);
+    }
+    printf("\nUnion: ");
+    for(int i=0;i<10;i++){
+        if(bitA[i]==bitB[i]){
+            union1[i]=bitA[i];
+        }
+        else if(bitA[i]==1 || bitB[i]==1){
+            union1[i]=1;
+        }
+    printf("%d",union1[i]);
     }
 }
